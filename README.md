@@ -6,6 +6,7 @@
 mkdir -p $HOME/local/src
 cd $HOME/local/src
 git clone https://github.com/ComputationalCondensed-matterPhysicsLab/setup.git
+cd setup
 chmod +x run.sh
 ./run.sh
 ```
