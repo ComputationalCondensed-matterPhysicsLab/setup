@@ -26,7 +26,7 @@ LDLIB  = -ldl
 MATH   = -lm -lc
 
 
-FFLAGS ?= -O2
+FFLAGS ?= -O2 -no-wrap-margin
 FC     = ifort
 
 #-------------------------------------------
