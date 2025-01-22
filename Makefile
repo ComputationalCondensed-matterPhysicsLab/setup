@@ -44,18 +44,44 @@ fftw: fftw-down
 fftw-down:	
 	. ./DOWNLOAD.sh "$(DOWNLOAD)" "FFTW" "$(FFTW_TGZ)" "$(FFTW_DIR)" "$(FFTW_DOWNLOAD)";
 
+# Doxygen
+doxy: doxy-down
+	. ./ECHO.sh 11 Doxygen; \
+	cd $(DOXY_DIR); \
+	mkdir -p build;\
+  cd build;\
+  cmake -G "Unix Makefiles" ..; \
+  make;\
+  make install; # need to edit "/usr/local" to "local path" {in $(DOXY_DIR)/build/cmake.include}
+doxy-down:
+	. ./DOWNLOAD.sh "$(DOWNLOAD)" "Doxygen" "$(DOXY_TGZ)" "$(DOXY_DIR)" "$(DOXY_DOWNLOAD)";
+	tar xf "$(DOXY_TGZ)"
+
+# ITK
+itk: itk-down
+	. ./ECHO.sh 11 ITK; \
+	mkdir tmp; \
+	cd tmp; \
+	cmake ../ITK
+itk2:
+	. ./ECHO.sh 11 ITK2; \
+	cd tmp;
+	make -j16
+itk-down:
+	. ./DOWNLOAD.sh "git clone" "ITK" "" "$(ITK_DIR)" "$(ITK_URL)";
+
 # Clean
 ## clean downloaded files only
 srcclean:
-	for file in $(TCL_TGZ) $(TK_TGZ) $(TOGL_TGZ) $(FFTW_TGZ);do \
+	for file in $(TCL_TGZ) $(TK_TGZ) $(TOGL_TGZ) $(FFTW_TGZ) $(DOXY_TGZ);do \
 		if test -f $$file; then rm -f $$file; fi; \
 	done; \
-	for dir in $(TCL_DIR) $(TK_DIR) $(TOGL_DIR) $(FFTW_DIR);do \
+	for dir in $(TCL_DIR) $(TK_DIR) $(TOGL_DIR) $(FFTW_DIR) $(DOXY_DIR);do \
 		if test -d $$dir ; then rm -rf $$dir ; fi; \
 	done
 ## clean libraries
 libclean:
-	for dir in $(TCL_DIR) $(TK_DIR) $(TOGL_DIR) $(FFTW_DIR);do \
+	for dir in $(TCL_DIR) $(TK_DIR) $(TOGL_DIR) $(FFTW_DIR) $(DOXY_DIR);do \
 		(cd $$dir; $(MAKE) clean) \
 	done
 

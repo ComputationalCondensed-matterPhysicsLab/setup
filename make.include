@@ -57,9 +57,25 @@ FFTW_DIR = fftw-$(FFTW_VER)
 FFTW_TGZ = $(FFTW_DIR).tar.gz
 FFTW_URL = http://www.fftw.org
 
+#------------------------------------------------------------------------
+# Doxygen
+#------------------------------------------------------------------------
+DOXY_VER = 1.13.2
+
+DOXY_DIR = doxygen-$(DOXY_VER)
+DOXY_TGZ = $(DOXY_DIR).src.tar.gz
+DOXY_URL = https://www.doxygen.nl/files/
+
+#------------------------------------------------------------------------
+# ITK
+#------------------------------------------------------------------------
+ITK_DIR=ITK
+ITK_URL=https://github.com/InsightSoftwareConsortium/ITK
+
 # ---don't-touch---------------------------------------------------------
 TCL_DOWNLOAD      = $(TCL_URL)/$(TCL_TGZ)
 TK_DOWNLOAD       = $(TCL_URL)/$(TK_TGZ)
 TOGL_DOWNLOAD     = $(TOGL_URL)/$(TOGL_TGZ)
 FFTW_DOWNLOAD     = $(FFTW_URL)/$(FFTW_TGZ)
+DOXY_DOWNLOAD     = $(DOXY_URL)/$(DOXY_TGZ)
 # -----------------------------------------------------------------------
