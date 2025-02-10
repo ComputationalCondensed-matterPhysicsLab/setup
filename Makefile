@@ -50,10 +50,10 @@ doxy: doxy-down
 	cd $(DOXY_DIR); \
 	mkdir -p build;\
   cd build;\
-  cmake -G "Unix Makefiles" ..; \
+  cmake .. -G "Unix Makefiles" -Dbuild_wizard=YES -DCMAKE_INSTALL_PREFIX=~/local/; \
   make;\
-  make install; # need to edit "/usr/local" to "local path" {in $(DOXY_DIR)/build/cmake.include}
-doxy-down:
+  make install;
+doxy-down: # use conda install conda-forge::doxygen
 	. ./DOWNLOAD.sh "$(DOWNLOAD)" "Doxygen" "$(DOXY_TGZ)" "$(DOXY_DIR)" "$(DOXY_DOWNLOAD)";
 	tar xf "$(DOXY_TGZ)"
 
