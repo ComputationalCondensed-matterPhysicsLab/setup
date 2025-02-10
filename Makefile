@@ -50,7 +50,7 @@ doxy: doxy-down
 	cd $(DOXY_DIR); \
 	mkdir -p build;\
   cd build;\
-  cmake .. -G "Unix Makefiles" -Dbuild_wizard=YES -DCMAKE_INSTALL_PREFIX=~/local/; \
+  cmake .. -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX=~/local/ #-Dbuild_wizard=YES; \
   make;\
   make install;
 doxy-down: # use conda install conda-forge::doxygen
