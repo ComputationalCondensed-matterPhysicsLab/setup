@@ -1,2 +1,3 @@
 # except tar file
 *.tar.gz
+doxygen-*/
