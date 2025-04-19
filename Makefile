@@ -1,10 +1,16 @@
-include make.include
+include include.mak
+include help.mak
+include func.mak
+
+# Generate check rules for packages
 
 all: tcl tk togl fftw 
 down_all: tcl-down tk-down togl-down fftw-down
 
 # Tcl
-tcl: tcl-down
+$(eval $(call package-check,tcl,	Tcl,	$(TOPDIR)/lib/libtcl*))
+tcl: tcl-check
+tcl-install: tcl-down
 	. ./ECHO.sh 11 Tcl; \
 	cd $(TCL_DIR)/unix; \
 	./configure $(TCLTK_OPTIONS) --prefix=$(TOPDIR); \
@@ -13,7 +19,9 @@ tcl-down:
 	. ./DOWNLOAD.sh "$(DOWNLOAD)" "Tcl" "$(TCL_TGZ)" "$(TCL_DIR)" "$(TCL_DOWNLOAD)"
 
 # Tk
-tk: tk-down
+$(eval $(call package-check,tk,		Tk,		$(TOPDIR)/lib/libtk*))
+tk: tk-check
+tk-install: tk-down
 	. ./ECHO.sh 11 Tk; \
  	cd $(TK_DIR)/unix; \
 	CPPFLAGS=-I$(TOPDIR)/include LDFLAGS=-L$(TOPDIR)/lib ./configure $(TCLTK_OPTIONS) --prefix=$(TOPDIR); \
@@ -22,7 +30,9 @@ tk-down:
 	. ./DOWNLOAD.sh "$(DOWNLOAD)" "Tk" "$(TK_TGZ)" "$(TK_DIR)" "$(TK_DOWNLOAD)";
 
 # Togl
-togl: togl-down
+$(eval $(call package-check,togl,	Togl,	$(TOPDIR)/lib/libTogl*))
+togl: togl-check
+togl-install: togl-down
 	. ./ECHO.sh 11 Togl; \
 	(cd $(TOGL_DIR); \
 		./configure $(TOGL_OPTIONS) --prefix=$(TOPDIR) CPPFLAGS=-I$(TOPDIR)/include LDFLAGS=-L$(TOPDIR)/lib; \
@@ -36,7 +46,9 @@ togl-down:
 	. ./DOWNLOAD.sh "$(DOWNLOAD)" "Togl" "$(TOGL_TGZ)" "$(TOGL_DIR)" "$(TOGL_DOWNLOAD)";
 
 # FFTW
-fftw: fftw-down
+$(eval $(call package-check,fftw,	FFTW,	$(TOPDIR)/lib/libfftw3*))
+fftw: fftw-check
+fftw-install: fftw-down
 	. ./ECHO.sh 11 FFTW; \
 	cd $(FFTW_DIR); \
 	./configure $(FFTW_OPTIONS) --prefix=$(TOPDIR); \
@@ -58,15 +70,12 @@ doxy-down: # use conda install conda-forge::doxygen
 	tar xf "$(DOXY_TGZ)"
 
 # ITK
-itk: itk-down
+itk: tcl-check itk-check
+itk-install: itk-down
 	. ./ECHO.sh 11 ITK; \
-	mkdir tmp; \
-	cd tmp; \
-	cmake ../ITK
-itk2:
-	. ./ECHO.sh 11 ITK2; \
-	cd tmp;
-	make -j16
+	cd $(ITK_DIR); \
+	./configure $(ITK_OPTIONS) --prefix=$(TOPDIR); \
+	$(MAKE); $(MAKE) install;
 itk-down:
 	. ./DOWNLOAD.sh "git clone" "ITK" "" "$(ITK_DIR)" "$(ITK_URL)";
 

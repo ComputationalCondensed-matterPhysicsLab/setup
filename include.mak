@@ -69,9 +69,11 @@ DOXY_URL = https://www.doxygen.nl/files/
 #------------------------------------------------------------------------
 # ITK
 #------------------------------------------------------------------------
-ITK_DIR=ITK
-ITK_URL=https://github.com/InsightSoftwareConsortium/ITK
+ITCL_VER = 4.1.2
+ITK_OPTIONS   = --with-tcl=$(TOPDIR)/lib --with-tk=$(TOPDIR)/lib --with-itcl=$(TOPDIR)/lib/itcl$(ITCL_VER)
 
+ITK_DIR=itk
+ITK_URL=https://github.com/tcltk/itk.git
 # ---don't-touch---------------------------------------------------------
 TCL_DOWNLOAD      = $(TCL_URL)/$(TCL_TGZ)
 TK_DOWNLOAD       = $(TCL_URL)/$(TK_TGZ)
